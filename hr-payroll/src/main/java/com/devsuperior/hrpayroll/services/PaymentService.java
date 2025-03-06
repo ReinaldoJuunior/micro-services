@@ -25,7 +25,10 @@ public class PaymentService {
 		uriVariables.put("id", ""+workerId);
 		
 		Worker worker = restTemplate.getForObject(workerHost + "/workers/{id}", Worker.class, uriVariables);
-		return new Payment(worker.getName(), worker.getDailyIncome(), days );
+		if (worker == null) {
+			throw new IllegalArgumentException("Worker not found for ID: " + workerId);
+		}
+		return new Payment(worker.getName(), worker.getDailyIncome(), days);
 	}
 
 }

@@ -14,7 +14,12 @@ public class Payment implements Serializable{
 	}
 
 	public Payment(String name, Double dailyIncoming, Integer days) {
-		super();
+		if (days <= 0) {
+			throw new IllegalArgumentException("Days must be greater than zero");
+		}
+		if (dailyIncoming <= 0.0) {
+			throw new IllegalArgumentException("Daily income must be greater than zero");
+		}
 		this.name = name;
 		this.dailyIncoming = dailyIncoming;
 		this.days = days;
